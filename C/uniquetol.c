@@ -37,6 +37,28 @@ UniqueTolArray uniquetol_base(
             arr_sorted[i] = arr[perm_sorted[i]];
         }
         
-        // meow
+        int* indices_unique_temp = malloc(n * sizeof(int));
+        int length = 0;
+        int i = 0;
+        int j = 1;
+        
+        while (j < n) {
+            double c = arr_sorted[i];
+            bool is_close = true;
+            
+            while (is_close && j < n) {
+                is_close = isapprox(c, arr_sorted[j], atol, rtol);
+                j++;
+            }
+            
+            i = j - 1;
+            if (!is_close) {
+                indices_unique_temp[length] = i;
+                length++;
+            }
+        }
+        
+        int* indices_unique = realloc(indices_unique_temp, length * sizeof(int));
+        3;
     }
 }
