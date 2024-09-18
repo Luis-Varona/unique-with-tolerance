@@ -11,6 +11,7 @@ import java.util.stream.IntStream;
 public class ImpreciseArray {
     // Fields
     private double[] arr;
+    private int arrSize;
     private int[] permSorted;
     private double[] arrSorted;
     
@@ -18,6 +19,7 @@ public class ImpreciseArray {
     // Constructor
     public ImpreciseArray(double[] arr) {
         this.arr = arr;
+        this.arrSize = arr.length;
         this.permSorted = setPermSorted();
         this.arrSorted = setArrSorted();
     }
@@ -33,7 +35,7 @@ public class ImpreciseArray {
     private int[] setPermSorted() {
         double[] arr = this.arr;
         List<Integer> permSorted = IntStream.range(
-            0, arr.length
+            0, this.arrSize
         ).boxed().collect(Collectors.toList());
         
         Comparator<Integer> sortingComparator = new Comparator<Integer>() {
@@ -48,9 +50,9 @@ public class ImpreciseArray {
     }
     
     private double[] setArrSorted() {
-        double[] arrSorted = new double[this.arr.length];
+        double[] arrSorted = new double[this.arrSize];
         
-        for (int i = 0; i < this.arr.length; i++) {
+        for (int i = 0; i < this.arrSize; i++) {
             arrSorted[i] = this.arr[permSorted[i]];
         }
         
@@ -76,7 +78,7 @@ public class ImpreciseArray {
             );
         }
         
-        if (this.arr.length == 0) {
+        if (this.arrSize == 0) {
             double[] arrUnique = new double[0];
             int[] indicesUnique = new int[0];
             int[] inverseUnique = new int[0];
@@ -112,6 +114,7 @@ public class ImpreciseArray {
     
     
     // Fields for internal use
+    private int numUnique;
     private int[] indicesUnique;
     private int[] inverseUnique;
     private int[] countsUnique;
@@ -125,11 +128,11 @@ public class ImpreciseArray {
         int i = 0;
         int j = 1;
         
-        while (j < this.arrSorted.length) {
+        while (j < this.arrSize) {
             double c = this.arrSorted[i];
             Boolean isClose = true;
             
-            while (isClose && j < this.arrSorted.length) {
+            while (isClose && j < this.arrSize) {
                 isClose = new ImprecisePair(
                     c,
                     this.arrSorted[j],
@@ -146,15 +149,16 @@ public class ImpreciseArray {
         }
         
         this.indicesUnique = indicesUnique.stream().mapToInt(k -> k).toArray();
+        this.numUnique = this.indicesUnique.length;
     }
     
     
     private void setCountsUnique() {
-        int[] countsUnique = new int[this.indicesUnique.length];
-        int[] flags = Arrays.copyOf(this.indicesUnique, this.indicesUnique.length + 1);
-        flags[this.indicesUnique.length] = this.arr.length;
+        int[] countsUnique = new int[this.numUnique];
+        int[] flags = Arrays.copyOf(this.indicesUnique, this.numUnique + 1);
+        flags[this.numUnique] = this.arrSize;
         
-        for (int i = 0; i < this.indicesUnique.length; i++) {
+        for (int i = 0; i < this.numUnique; i++) {
             countsUnique[i] = flags[i + 1] - flags[i];
         }
         
@@ -163,9 +167,9 @@ public class ImpreciseArray {
     
     
     private void setInverseUnique() {
-        int[] inverseUnique = new int[this.arr.length];
+        int[] inverseUnique = new int[this.arrSize];
         
-        for (int i = 0; i < this.countsUnique.length; i++) {
+        for (int i = 0; i < this.numUnique; i++) {
             for (int j = 0; j < this.countsUnique[i]; j++) {
                 inverseUnique[permSorted[indicesUnique[i] + j]] = i;
             }
@@ -181,21 +185,21 @@ public class ImpreciseArray {
             1,
             this.indicesUnique,
             0,
-            this.indicesUnique.length - 1
+            this.numUnique - 1
         );
         
-        for (int i = 0; i < this.indicesUnique.length - 1; i++) {
+        for (int i = 0; i < this.numUnique - 1; i++) {
             this.indicesUnique[i] -= 1;
         }
         
-        this.indicesUnique[this.indicesUnique.length - 1] = this.arr.length - 1;
+        this.indicesUnique[this.numUnique - 1] = this.arrSize - 1;
     }
     
     
     private void permuteIndicesUnique() {
-        int[] indicesUniqueTemp = new int[this.indicesUnique.length];
+        int[] indicesUniqueTemp = new int[this.numUnique];
         
-        for (int i = 0; i < this.indicesUnique.length; i++) {
+        for (int i = 0; i < this.numUnique; i++) {
             indicesUniqueTemp[i] = permSorted[indicesUnique[i]];
         }
         
@@ -204,9 +208,9 @@ public class ImpreciseArray {
     
     
     private double[] getArrUnique() {
-        double[] arrUnique = new double[this.indicesUnique.length];
+        double[] arrUnique = new double[this.numUnique];
         
-        for (int i = 0; i < this.indicesUnique.length; i++) {
+        for (int i = 0; i < this.numUnique; i++) {
             arrUnique[i] = this.arr[this.indicesUnique[i]];
         }
         
