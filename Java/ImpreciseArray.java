@@ -120,13 +120,14 @@ public class ImpreciseArray {
     // Private methods
     private void setIndicesUnique(double atol, double rtol) {
         List<Integer> indicesUnique = new ArrayList<Integer>();
-        int i = 0;
+        indicesUnique.add(0);
         
-        while (i < this.arrSorted.length) {
-            indicesUnique.add(i);
+        int i = 0;
+        int j = 1;
+        
+        while (j < this.arrSorted.length) {
             double c = this.arrSorted[i];
             Boolean isClose = true;
-            int j = i + 1;
             
             while (isClose && j < this.arrSorted.length) {
                 isClose = new ImprecisePair(
@@ -138,7 +139,10 @@ public class ImpreciseArray {
                 j++;
             }
             
-            i = j;
+            i = j - 1;
+            if (!isClose) {
+                indicesUnique.add(i);
+            }
         }
         
         this.indicesUnique = indicesUnique.stream().mapToInt(k -> k).toArray();
