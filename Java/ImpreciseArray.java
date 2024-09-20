@@ -155,11 +155,11 @@ public class ImpreciseArray {
     
     private void setCountsUnique() {
         int[] countsUnique = new int[this.numUnique];
-        int[] flags = Arrays.copyOf(this.indicesUnique, this.numUnique + 1);
-        flags[this.numUnique] = this.arrSize;
+        countsUnique[this.numUnique - 1] = this.arrSize 
+                                         - this.indicesUnique[this.numUnique - 1];
         
-        for (int i = 0; i < this.numUnique; i++) {
-            countsUnique[i] = flags[i + 1] - flags[i];
+        for (int i = 0; i < this.numUnique - 1; i++) {
+            countsUnique[i] = this.indicesUnique[i + 1] - this.indicesUnique[i];
         }
         
         this.countsUnique = countsUnique;
