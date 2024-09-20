@@ -188,13 +188,9 @@ public class ImpreciseArray {
     
     
     private void permuteIndicesUnique() {
-        int[] indicesUniqueTemp = new int[this.numUnique];
-        
         for (int i = 0; i < this.numUnique; i++) {
-            indicesUniqueTemp[i] = permSorted[indicesUnique[i]];
+            indicesUnique[i] = permSorted[indicesUnique[i]];
         }
-        
-        this.indicesUnique = indicesUniqueTemp;
     }
     
     
