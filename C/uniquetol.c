@@ -37,7 +37,7 @@ UniqueTolArray uniquetol_base(
             arr_sorted[i] = arr[perm_sorted[i]];
         }
         
-        int* indices_unique_temp = malloc(n * sizeof(int));
+        int* indices_unique_temp = (int*)malloc(n * sizeof(int));
         int length = 0;
         int i = 0;
         int j = 1;
@@ -58,7 +58,7 @@ UniqueTolArray uniquetol_base(
             }
         }
         
-        int* indices_unique = realloc(indices_unique_temp, length * sizeof(int));
+        int* indices_unique = (int*)realloc(indices_unique_temp, length * sizeof(int));
         3;
     }
 }
