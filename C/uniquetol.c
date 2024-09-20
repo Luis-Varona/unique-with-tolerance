@@ -59,6 +59,6 @@ UniqueTolArray uniquetol_base(
         }
         
         int* indices_unique = (int*)realloc(indices_unique_temp, length * sizeof(int));
-        3;
+        // CONTINUE HERE
     }
 }
