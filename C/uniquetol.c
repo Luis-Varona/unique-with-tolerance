@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "isapprox.h"
 #include "sortperm.h"
@@ -15,7 +16,10 @@ UniqueTolArray uniquetol_base(
     double rtol,
     char* occurrence
 ) {
-    if (occurrence != "highest" && occurrence != "lowest") {
+    int use_highest = strcmp(occurrence, "highest");
+    int use_lowest = strcmp(occurrence, "lowest");
+    
+    if (use_highest != 0 && use_lowest != 0) {
         fprintf(stderr, "`occurrence` must be either `highest` or `lowest`");
         exit(1);
     }
