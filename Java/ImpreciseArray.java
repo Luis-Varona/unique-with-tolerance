@@ -1,6 +1,5 @@
 // Imports
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -180,16 +179,8 @@ public class ImpreciseArray {
     
     
     private void useHighestOccurrences() {
-        System.arraycopy(
-            this.indicesUnique,
-            1,
-            this.indicesUnique,
-            0,
-            this.numUnique - 1
-        );
-        
         for (int i = 0; i < this.numUnique - 1; i++) {
-            this.indicesUnique[i] -= 1;
+            this.indicesUnique[i] = this.indicesUnique[i + 1];
         }
         
         this.indicesUnique[this.numUnique - 1] = this.arrSize - 1;
