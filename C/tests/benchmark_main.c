@@ -14,7 +14,7 @@ int main() {
     double *test_arr = test_array();
     double start_clock = clock();
     
-    for (int i = 0; i < 1e4; i++) {
+    for (int i = 0; i < 1e6; i++) {
         uniquetol(test_arr, n);
     }
     
