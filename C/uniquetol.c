@@ -10,30 +10,11 @@
 #include "uniquetol.h"
 
 //
-UniqueTolArray uniquetol_base(
-    double *arr,
-    int n,
-    double atol,
-    double rtol,
-    char *occurrence
-);
-
-//
 UniqueTolArray uniquetol_var(double *arr, int n, UniqueTolArgs in) {
-    double atol_out = in.atol ? in.atol : 1e-8;
-    double rtol_out = in.rtol ? in.rtol : sqrt(nextafter(1, 2) - 1);
-    char *occurrence_out = in.occurrence ? in.occurrence : "highest";
-    return uniquetol_base(arr, n, atol_out, rtol_out, occurrence_out);
-}
-
-//
-UniqueTolArray uniquetol_base(
-    double *arr,
-    int n,
-    double atol,
-    double rtol,
-    char *occurrence
-) {
+    double atol = in.atol ? in.atol : 1e-8;
+    double rtol = in.rtol ? in.rtol : sqrt(nextafter(1, 2) - 1);
+    char *occurrence = in.occurrence ? in.occurrence : "highest";
+    
     int use_highest = strcmp(occurrence, "highest");
     int use_lowest = strcmp(occurrence, "lowest");
     
@@ -64,8 +45,10 @@ UniqueTolArray uniquetol_base(
         double arr_sorted[n];
         int inverse_unique[n];
         int *indices_unique_temp = (int*)malloc(n * sizeof(int));
-        int i = 0; int j = 1; int k = 0;
+        int i = 0; int j = 1; int k = 1;
+        
         sortperm(arr, perm_sorted, n);
+        indices_unique_temp[0] = 0;
         
         for (int i = 0; i < n; i++) {
             arr_sorted[i] = arr[perm_sorted[i]];
@@ -91,15 +74,22 @@ UniqueTolArray uniquetol_base(
         double arr_unique[k];
         int counts_unique[k];
         int *indices_unique = (int*)realloc(indices_unique_temp, k * sizeof(int));
-        counts_unique[k] = n - indices_unique[k];
         
-        for (int i = 0; i < k - 1; i++) {
-            counts_unique[i] = indices_unique[i + 1] - indices_unique[i];
+        int index_last = indices_unique[k - 1];
+        int count_last = n - index_last;
+        counts_unique[k - 1] = count_last;
+        
+        for (int j = 0; j < count_last; j++) {
+            inverse_unique[perm_sorted[index_last + j]] = k - 1;
         }
         
-        for (int i = 0; i < k; i++) {
-            for (int j = 0; j < counts_unique[i]; j++) {
-                inverse_unique[indices_unique[i] + j] = i;
+        for (int i = 0; i < k - 1; i++) {
+            int index = indices_unique[i];
+            int count = indices_unique[i + 1] - index;
+            counts_unique[i] = count;
+            
+            for (int j = 0; j < count; j++) {
+                inverse_unique[perm_sorted[index + j]] = i;
             }
         }
         
@@ -112,11 +102,9 @@ UniqueTolArray uniquetol_base(
         }
         
         for (int i = 0; i < k; i++) {
-            indices_unique[i] = perm_sorted[indices_unique[i]];
-        }
-        
-        for (int i = 0; i < k; i++) {
-            arr_unique[i] = arr[indices_unique[i]];
+            int index = perm_sorted[indices_unique[i]];
+            arr_unique[i] = arr[index];
+            indices_unique[i] = index;
         }
         
         out = (UniqueTolArray){
