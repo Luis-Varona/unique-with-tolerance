@@ -21,4 +21,5 @@ Vars = namedtuple('Vars', 'testArr u ix inv cts spaces')
 variables = Vars(testArr, u, ix, inv, cts, spaces)
 
 # %%
-# timeit(lambda: uniquetol(testArr), number = 10000)
+t = timeit(lambda: uniquetol(testArr), number = 10000)
+print(t)

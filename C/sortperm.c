@@ -1,12 +1,26 @@
 //
-#include <stdio.h>
 #include <stdlib.h>
 
 //
-int compare(double* arr, const void* p, const void* q) {
+double *global_arr;
+int compare(const void *p, const void *q);
+
+//
+void sortperm(double *arr, int *perm, int n) {
+    for (int i = 0; i < n; i++) {
+        perm[i] = i;
+    }
+    
+    global_arr = arr;
+    qsort(perm, n, sizeof(int), compare);
+}
+
+//
+int compare(const void *p, const void *q) {
+    extern double *global_arr;
     int result;
     
-    if (arr[*(int*)p] - arr[*(int*)q] > 0) {
+    if (global_arr[*(int*)p] - global_arr[*(int*)q] > 0) {
         result = 1;
     }
     else {
@@ -14,21 +28,4 @@ int compare(double* arr, const void* p, const void* q) {
     }
     
     return result;
-}
-
-int compare_wrapper(const void* p, const void* q) {
-    extern double* global_arr;
-    return compare(global_arr, p, q);
-}
-
-double* global_arr;
-
-//
-void sortperm(double* arr, int n, int* perm) {
-    for (int i = 0; i < n; i++) {
-        perm[i] = i;
-    }
-    
-    global_arr = arr;
-    qsort(perm, n, sizeof(int), compare_wrapper);
 }
