@@ -1,7 +1,7 @@
 //
 #include <stdio.h>
 #include <time.h>
-#include "../isapprox.h"
+#include "isapprox.h"
 
 //
 double pi = 3.14159265;
@@ -9,7 +9,7 @@ double x = 3.14159265 + 4e-7;
 double y = 3.14159265 * (1 + 1e-8);
 
 int main() {
-    double start_clock_x = clock();
+        double start_clock_x = clock();
     for (int i = 0; i < 1e9; i++) {
         isapprox(pi, x);
     }

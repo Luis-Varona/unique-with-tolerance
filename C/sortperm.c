@@ -5,7 +5,6 @@
 double *global_arr;
 int compare(const void *p, const void *q);
 
-//
 void sortperm(double *arr, int *perm, int n) {
     for (int i = 0; i < n; i++) {
         perm[i] = i;

@@ -2,7 +2,11 @@
 #include <stdlib.h>
 
 //
-void swap(double *a, double *b);
+void swap(double *p, double *q) {
+    double temp = *p;
+    *p = *q;
+    *q = temp;
+}
 
 //
 void permute(double *arr, int *perm, int n) {
@@ -36,11 +40,4 @@ void permute_inverse(double *arr, int *perm, int n) {
             j = idx_temp;
         }
     }
-}
-
-//
-void swap(double *p, double *q) {
-    double temp = *p;
-    *p = *q;
-    *q = temp;
 }
