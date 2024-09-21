@@ -55,6 +55,7 @@ UniqueTolArray uniquetol_base(
             .indices_unique = indices_unique,
             .inverse_unique = inverse_unique,
             .counts_unique = counts_unique,
+            .num_total = 0,
             .num_unique = 0
         };
     }
@@ -123,6 +124,7 @@ UniqueTolArray uniquetol_base(
             .indices_unique = indices_unique,
             .inverse_unique = inverse_unique,
             .counts_unique = counts_unique,
+            .num_total = n,
             .num_unique = k
         };
     }

@@ -8,6 +8,7 @@ typedef struct {
     int *indices_unique;
     int *inverse_unique;
     int *counts_unique;
+    int num_total;
     int num_unique;
 } UniqueTolArray;
 
