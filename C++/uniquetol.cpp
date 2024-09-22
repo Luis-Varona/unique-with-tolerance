@@ -4,9 +4,9 @@
 #include <stdbool.h>
 #include <string>
 
-#include "isapprox.h"
-#include "sortperm.h"
-#include "uniquetol.h"
+#include "isapprox.hpp"
+#include "sortperm.hpp"
+#include "uniquetol.hpp"
 
 //
 UniqueTolArray uniquetol(

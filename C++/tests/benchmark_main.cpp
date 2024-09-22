@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "../uniquetol.h"
-#include "testarray.h"
+#include "../uniquetol.hpp"
+#include "testarray.hpp"
 
 //
 const int n = 729;
