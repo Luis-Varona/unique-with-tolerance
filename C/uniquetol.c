@@ -10,10 +10,10 @@
 #include "uniquetol.h"
 
 //
-UniqueTolArray uniquetol_var(double *arr, int n, UniqueTolArgs in) {
-    double atol = in.atol ? in.atol : 1e-8;
-    double rtol = in.rtol ? in.rtol : sqrt(nextafter(1, 2) - 1);
-    char *occurrence = in.occurrence ? in.occurrence : "highest";
+UniqueTolArray uniquetol_var(double *arr, int n, UniqueTolArgs args) {
+    double atol = args.atol ? args.atol : 1e-8;
+    double rtol = args.rtol ? args.rtol : sqrt(nextafter(1, 2) - 1);
+    char *occurrence = args.occurrence ? args.occurrence : "highest";
     
     int use_highest = strcmp(occurrence, "highest");
     int use_lowest = strcmp(occurrence, "lowest");

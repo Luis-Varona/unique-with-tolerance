@@ -17,6 +17,6 @@ typedef struct {
 } UniqueTolArray;
 
 #define uniquetol(arr, n, ...) uniquetol_var(arr, n, (UniqueTolArgs){__VA_ARGS__})
-UniqueTolArray uniquetol_var(double *arr, int n, UniqueTolArgs in);
+UniqueTolArray uniquetol_var(double *arr, int n, UniqueTolArgs args);
 
 #endif
