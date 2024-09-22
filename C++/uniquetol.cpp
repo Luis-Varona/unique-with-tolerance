@@ -42,6 +42,78 @@ UniqueTolArray uniquetol(
         };
     }
     else {
-        3; // ADD LATER
+        int perm_sorted[n];
+        sortperm(arr, perm_sorted, n);
+        
+        double arr_sorted[n];
+        double c = arr[perm_sorted[0]];
+        arr_sorted[0] = c;
+        
+        int *indices_unique_temp = (int*)malloc(n * sizeof(int));
+        indices_unique_temp[0] = 0;
+        int num_unique = 1;
+        
+        for (int i = 1; i < n; i++) {
+            double next = arr[perm_sorted[i]];
+            arr_sorted[i] = next;
+            
+            if (!isapprox(c, next, atol, rtol)) {
+                c = next;
+                indices_unique_temp[num_unique] = i;
+                num_unique++;
+            }
+        }
+        
+        double arr_unique[num_unique];
+        int indices_unique[num_unique];
+        int inverse_unique[n];
+        int counts_unique[num_unique];
+        
+        memcpy(indices_unique, indices_unique_temp, num_unique * sizeof(int));
+        free(indices_unique_temp);
+        indices_unique_temp = NULL;
+        
+        int index_last = indices_unique[num_unique - 1];
+        int count_last = n - index_last;
+        counts_unique[num_unique - 1] = count_last;
+        
+        for (int j = 0; j < count_last; j++) {
+            inverse_unique[perm_sorted[index_last + j]] = num_unique - 1;
+        }
+        
+        for (int i = 0; i < num_unique - 1; i++) {
+            int index = indices_unique[i];
+            int count = indices_unique[i + 1] - index;
+            counts_unique[i] = count;
+            
+            for (int j = 0; j < count; j++) {
+                inverse_unique[perm_sorted[index + j]] = i;
+            }
+        }
+        
+        if (use_highest == 0) {
+            for (int i = 0; i < num_unique - 1; i ++) {
+                indices_unique[i] = indices_unique[i + 1] - 1;
+            }
+            
+            indices_unique[num_unique - 1] = n - 1;
+        }
+        
+        for (int i = 0; i < num_unique; i++) {
+            int index = perm_sorted[indices_unique[i]];
+            arr_unique[i] = arr[index];
+            indices_unique[i] = index;
+        }
+        
+        out = (UniqueTolArray){
+            .arr_unique = arr_unique,
+            .indices_unique = indices_unique,
+            .inverse_unique = inverse_unique,
+            .counts_unique = counts_unique,
+            .num_total = n,
+            .num_unique = num_unique
+        };
     }
+    
+    return out;
 }
