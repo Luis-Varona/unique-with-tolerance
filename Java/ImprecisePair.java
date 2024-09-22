@@ -1,8 +1,8 @@
 public class ImprecisePair {
-    private double x;
-    private double y;
-    private double atol;
-    private double rtol;
+    private final double x;
+    private final double y;
+    private final double atol;
+    private final double rtol;
     
     public ImprecisePair(double x, double y, double atol, double rtol) {
         this.x = x;

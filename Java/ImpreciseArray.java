@@ -9,10 +9,10 @@ import java.util.stream.IntStream;
 // Class
 public class ImpreciseArray {
     // Fields
-    private double[] arr;
-    private int arrSize;
-    private int[] permSorted;
-    private double[] arrSorted;
+    private final double[] arr;
+    private final int arrSize;
+    private final int[] permSorted;
+    private final double[] arrSorted;
     
     
     // Constructor
@@ -32,30 +32,30 @@ public class ImpreciseArray {
     
     // Field initialization methods
     private int[] setPermSorted() {
-        double[] arr = this.arr;
-        List<Integer> permSorted = IntStream.range(
+        double[] arrLocal = this.arr;
+        List<Integer> permSortedLocal = IntStream.range(
             0, this.arrSize
         ).boxed().collect(Collectors.toList());
         
         Comparator<Integer> sortingComparator = new Comparator<Integer>() {
             @Override
             public int compare(Integer i, Integer j) {
-                return Double.compare(arr[i], arr[j]);
+                return Double.compare(arrLocal[i], arrLocal[j]);
             }
         };
         
-        permSorted.sort(sortingComparator);
-        return permSorted.stream().mapToInt(k -> k).toArray();
+        permSortedLocal.sort(sortingComparator);
+        return permSortedLocal.stream().mapToInt(k -> k).toArray();
     }
     
     private double[] setArrSorted() {
-        double[] arrSorted = new double[this.arrSize];
+        double[] arrSortedLocal = new double[this.arrSize];
         
         for (int i = 0; i < this.arrSize; i++) {
-            arrSorted[i] = this.arr[permSorted[i]];
+            arrSortedLocal[i] = this.arr[permSorted[i]];
         }
         
-        return arrSorted;
+        return arrSortedLocal;
     }
     
     
@@ -71,23 +71,18 @@ public class ImpreciseArray {
         if (rtol < 0) {
             throw new IllegalArgumentException("`rtol` must be non-negative");
         }
-        if (occurrence != "highest" && occurrence != "lowest") {
+        if (!"highest".equals(occurrence) && !"lowest".equals(occurrence)) {
             throw new IllegalArgumentException(
                 "`occurrence` must be either 'highest' or 'lowest'"
             );
         }
         
         if (this.arrSize == 0) {
-            double[] arrUnique = new double[0];
-            int[] indicesUnique = new int[0];
-            int[] inverseUnique = new int[0];
-            int[] countsUnique = new int[0];
-            
             return new UniqueTolArray(
-                arrUnique,
-                indicesUnique,
-                inverseUnique,
-                countsUnique
+                new double[0],
+                new int[0],
+                new int[0],
+                new int[0]
             );
         }
         else {
@@ -95,7 +90,7 @@ public class ImpreciseArray {
             setCountsUnique();
             setInverseUnique();
             
-            if (occurrence == "highest") {
+            if ("highest".equals(occurrence)) {
                 useHighestOccurrences();
             }
             
@@ -121,8 +116,8 @@ public class ImpreciseArray {
     
     // Private methods
     private void setIndicesUnique(double atol, double rtol) {
-        List<Integer> indicesUnique = new ArrayList<Integer>();
-        indicesUnique.add(0);
+        List<Integer> indicesUniqueLocal = new ArrayList<>();
+        indicesUniqueLocal.add(0);
         
         int i = 0;
         int j = 1;
@@ -143,38 +138,38 @@ public class ImpreciseArray {
             
             i = j - 1;
             if (!isClose) {
-                indicesUnique.add(i);
+                indicesUniqueLocal.add(i);
             }
         }
         
-        this.indicesUnique = indicesUnique.stream().mapToInt(k -> k).toArray();
+        this.indicesUnique = indicesUniqueLocal.stream().mapToInt(k -> k).toArray();
         this.numUnique = this.indicesUnique.length;
     }
     
     
     private void setCountsUnique() {
-        int[] countsUnique = new int[this.numUnique];
-        countsUnique[this.numUnique - 1] = this.arrSize 
+        int[] countsUniqueLocal = new int[this.numUnique];
+        countsUniqueLocal[this.numUnique - 1] = this.arrSize 
                                          - this.indicesUnique[this.numUnique - 1];
         
         for (int i = 0; i < this.numUnique - 1; i++) {
-            countsUnique[i] = this.indicesUnique[i + 1] - this.indicesUnique[i];
+            countsUniqueLocal[i] = this.indicesUnique[i + 1] - this.indicesUnique[i];
         }
         
-        this.countsUnique = countsUnique;
+        this.countsUnique = countsUniqueLocal;
     }
     
     
     private void setInverseUnique() {
-        int[] inverseUnique = new int[this.arrSize];
+        int[] inverseUniqueLocal = new int[this.arrSize];
         
         for (int i = 0; i < this.numUnique; i++) {
             for (int j = 0; j < this.countsUnique[i]; j++) {
-                inverseUnique[permSorted[indicesUnique[i] + j]] = i;
+                inverseUniqueLocal[permSorted[this.indicesUnique[i] + j]] = i;
             }
         }
         
-        this.inverseUnique = inverseUnique;
+        this.inverseUnique = inverseUniqueLocal;
     }
     
     

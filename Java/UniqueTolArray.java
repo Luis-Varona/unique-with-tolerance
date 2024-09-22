@@ -1,10 +1,10 @@
 import java.util.Arrays;
 
 public class UniqueTolArray {
-    private double[] arr;
-    private int[] indicesUnique;
-    private int[] inverseUnique;
-    private int[] countsUnique;
+    private final double[] arr;
+    private final int[] indicesUnique;
+    private final int[] inverseUnique;
+    private final int[] countsUnique;
     
     public UniqueTolArray(
         double[] arr,
@@ -34,6 +34,7 @@ public class UniqueTolArray {
         return this.countsUnique;
     }
     
+    @Override
     public String toString() {
         return Arrays.toString(this.arr) + "\n\n" +
             Arrays.toString(this.indicesUnique) + "\n\n" +
