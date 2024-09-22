@@ -5,8 +5,8 @@
 bool isapprox(
     double x,
     double y,
-    double atol = 1e-8,
-    double rtol = sqrt(nextafter(1, 2) - 1)
+    double atol,
+    double rtol
 ) {
     return fabs(x - y) <= fmax(atol, rtol * fmax(fabs(x), fabs(y)));
 }
