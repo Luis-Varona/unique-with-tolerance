@@ -1,6 +1,5 @@
 // Imports
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -33,18 +32,15 @@ public class ImpreciseArray {
     // Field initialization methods
     private int[] setPermSorted() {
         double[] arrLocal = this.arr;
+        
         List<Integer> permSortedLocal = IntStream.range(
             0, this.arrSize
         ).boxed().collect(Collectors.toList());
         
-        Comparator<Integer> sortingComparator = new Comparator<Integer>() {
-            @Override
-            public int compare(Integer i, Integer j) {
-                return Double.compare(arrLocal[i], arrLocal[j]);
-            }
-        };
+        permSortedLocal.sort((i, j) -> {
+            return Double.compare(arrLocal[i], arrLocal[j]);
+        });
         
-        permSortedLocal.sort(sortingComparator);
         return permSortedLocal.stream().mapToInt(k -> k).toArray();
     }
     
