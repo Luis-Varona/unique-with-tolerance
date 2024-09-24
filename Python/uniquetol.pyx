@@ -5,3 +5,5 @@ cdef main():
     n = len(arr)
     result = uniquetol(arr, n)
     print(result.arr_unique)
+
+main()
