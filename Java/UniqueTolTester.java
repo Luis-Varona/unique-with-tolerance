@@ -1,6 +1,6 @@
 public class UniqueTolTester {
     public static void main(String[] args) {
-        ImpreciseArray arr = ConstTestArray.arr;
+        ImpreciseArray arr = ConstTestArray.testarray;
         
         UniqueTolArray arrUnique = arr.uniqueTol(
             1e-8,
