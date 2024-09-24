@@ -9,7 +9,7 @@ public class UniqueTolTester {
         );
         
         System.out.println(String.valueOf(arr.getArr().length));
-        System.out.println(String.valueOf(arrUnique.getArr().length) + "\n");
+        System.out.println(String.valueOf(arrUnique.arr.length) + "\n");
         System.out.println(arrUnique.toString());
     }
 }

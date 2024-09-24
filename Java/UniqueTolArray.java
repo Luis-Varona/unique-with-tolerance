@@ -1,10 +1,10 @@
 import java.util.Arrays;
 
 public class UniqueTolArray {
-    private final double[] arr;
-    private final int[] indicesUnique;
-    private final int[] inverseUnique;
-    private final int[] countsUnique;
+    public final double[] arr;
+    public final int[] indicesUnique;
+    public final int[] inverseUnique;
+    public final int[] countsUnique;
     
     public UniqueTolArray(
         double[] arr,
@@ -16,22 +16,6 @@ public class UniqueTolArray {
         this.indicesUnique = indicesUnique;
         this.inverseUnique = inverseUnique;
         this.countsUnique = countsUnique;
-    }
-    
-    public double[] getArr() {
-        return this.arr;
-    }
-    
-    public int[] getIndicesUnique() {
-        return this.indicesUnique;
-    }
-    
-    public int[] getInverseUnique() {
-        return this.inverseUnique;
-    }
-    
-    public int[] getCountsUnique() {
-        return this.countsUnique;
     }
     
     @Override
