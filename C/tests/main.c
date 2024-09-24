@@ -1,12 +1,6 @@
-//
 #include <stdio.h>
-
 #include "../uniquetol.h"
 #include "testarray.h"
-
-//
-const int n = 729;
-double test_arr[n];
 
 int main() {
     double *test_arr = test_array();
