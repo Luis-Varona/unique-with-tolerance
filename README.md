@@ -4,6 +4,6 @@ An algorithm to select unique values in arrays of imprecise floating-point data 
 
 A stable version for 1D arrays has been completed in several languages (although certain optimization steps remain). Out of these, the C++ implementation is the fastest. I am currently adding functionality for operating along specified axes of multidimensional arrays and packaging the project into language-specific libraries.
 
-This project was inspired by the `uniquetol` function in MATLAB and the `unique` function in Python's NumPy library.
+This project was inspired by the `uniquetol` function in MATLAB and NumPy's `unique` function in Python.
 
 **(WORK IN PROGRESSS)**
