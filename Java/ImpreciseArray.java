@@ -123,12 +123,9 @@ public class ImpreciseArray {
             Boolean isClose = true;
             
             while (isClose && j < this.arrSize) {
-                isClose = new ImprecisePair(
-                    c,
-                    this.arrSorted[j],
-                    atol,
-                    rtol
-                ).isClose();
+                isClose = Math.abs(c - this.arrSorted[j]) <= Math.max(
+                    atol, rtol * Math.max(Math.abs(c), Math.abs(this.arrSorted[j]))
+                );
                 j++;
             }
             
