@@ -1,3 +1,4 @@
+from cpython import array
 from uniquetol cimport uniquetol
 
 cdef main():
@@ -5,7 +6,7 @@ cdef main():
     cdef int n
     cdef UniqueTolArray result
     
-    arr = [1.0, 2.0, 3.0, 4.0]
+    arr = array([1.0, 2.0, 3.0, 4.0])
     n = len(arr)
     result = uniquetol(arr, n)
     print(result.arr_unique)
