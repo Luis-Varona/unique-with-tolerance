@@ -80,16 +80,7 @@ public class ImpreciseArray {
         else {
             setIndicesUnique(atol, rtol);
             setCountsAndInverseUnique();
-            
-            if ("highest".equals(occurrence)) {
-                for (int i = 0; i < this.numUnique - 1; i++) {
-                    this.indicesUnique[i] = this.indicesUnique[i + 1];
-                }
-                
-                this.indicesUnique[this.numUnique - 1] = this.arrSize - 1;
-            }
-            
-            setArrUniqueAndPermuteIndices();
+            setArrUniqueAndPermuteIndices(occurrence);
             
             out = new UniqueTolArray(
                 this.arrUnique,
@@ -157,8 +148,16 @@ public class ImpreciseArray {
         this.countsUnique = countsUniqueLocal;
     }
     
-    private void setArrUniqueAndPermuteIndices() {
+    private void setArrUniqueAndPermuteIndices(String occurrence) {
         double[] arrUniqueLocal = new double[this.numUnique];
+        
+        if ("highest".equals(occurrence)) {
+            for (int i = 0; i < this.numUnique - 1; i++) {
+                this.indicesUnique[i] = this.indicesUnique[i + 1];
+            }
+            
+            this.indicesUnique[this.numUnique - 1] = this.arrSize - 1;
+        }
         
         for (int i = 0; i < this.numUnique; i++) {
             int index = permSorted[indicesUnique[i]];
