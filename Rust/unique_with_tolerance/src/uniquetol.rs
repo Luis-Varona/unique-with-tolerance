@@ -2,9 +2,7 @@
 #[path = "isapprox.rs"] mod isapprox;
 #[path = "sortperm.rs"] mod sortperm;
 
-//
-use isapprox::Tols;
-use isapprox::isapprox;
+use isapprox::{Tols, isapprox};
 use sortperm::sortperm;
 
 //
@@ -109,7 +107,6 @@ pub struct UniqueTolArgs {
     pub occurrence: &'static str,
 }
 
-//
 impl Default for UniqueTolArgs {
     fn default() -> UniqueTolArgs {
         UniqueTolArgs {
