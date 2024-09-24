@@ -56,16 +56,19 @@ module UniqueWithTolerance
             
             perm_sorted = sortperm(vec)
             vec_sorted = vec[perm_sorted]
-            indices_unique = Int64[]
-            idx = 1
-            idx_switch = 0
+            
+            indices_unique = Vector{Int64}(undef, n)
+            idx = 1; idx_switch = 0; num_unique = 0
             
             while !isnothing(idx_switch)
                 idx += idx_switch
-                push!(indices_unique, idx)
+                num_unique += 1
+                indices_unique[num_unique] = idx
                 c = vec_sorted[idx]
                 idx_switch = findfirst(x -> !isclose(c, x), vec_sorted[(idx + 1):end])
             end
+            
+            indices_unique = indices_unique[1:num_unique]
             
             if return_counts || return_inverse
                 counts_unique = diff(vcat(indices_unique, n + 1))
