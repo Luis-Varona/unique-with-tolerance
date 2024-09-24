@@ -83,18 +83,16 @@ public class ImpreciseArray {
         }
         else {
             setIndicesUnique(atol, rtol);
-            setCountsUnique();
-            setInverseUnique();
+            setCountsAndInverseUnique();
             
             if ("highest".equals(occurrence)) {
                 useHighestOccurrences();
             }
             
             permuteIndicesUnique();
-            double[] arrUnique = getArrUnique();
             
             return new UniqueTolArray(
-                arrUnique,
+                getArrUnique(),
                 this.indicesUnique,
                 this.inverseUnique,
                 this.countsUnique
@@ -140,29 +138,29 @@ public class ImpreciseArray {
     }
     
     
-    private void setCountsUnique() {
+    private void setCountsAndInverseUnique() {
+        int[] inverseUniqueLocal = new int[this.arrSize];
         int[] countsUniqueLocal = new int[this.numUnique];
-        countsUniqueLocal[this.numUnique - 1] = this.arrSize 
-                                         - this.indicesUnique[this.numUnique - 1];
+        int indexLast = this.indicesUnique[this.numUnique - 1];
+        int countLast = this.arrSize - indexLast;
+        countsUniqueLocal[this.numUnique - 1] = countLast;
         
-        for (int i = 0; i < this.numUnique - 1; i++) {
-            countsUniqueLocal[i] = this.indicesUnique[i + 1] - this.indicesUnique[i];
+        for (int j = 0; j < countLast; j++) {
+            inverseUniqueLocal[permSorted[indexLast + j]] = this.numUnique - 1;
         }
         
-        this.countsUnique = countsUniqueLocal;
-    }
-    
-    
-    private void setInverseUnique() {
-        int[] inverseUniqueLocal = new int[this.arrSize];
-        
-        for (int i = 0; i < this.numUnique; i++) {
-            for (int j = 0; j < this.countsUnique[i]; j++) {
-                inverseUniqueLocal[permSorted[this.indicesUnique[i] + j]] = i;
+        for (int i = 0; i < this.numUnique - 1; i++) {
+            int index = this.indicesUnique[i];
+            int count = this.indicesUnique[i + 1] - index;
+            countsUniqueLocal[i] = count;
+            
+            for (int j = 0; j < count; j++) {
+                inverseUniqueLocal[permSorted[index + j]] = i;
             }
         }
         
         this.inverseUnique = inverseUniqueLocal;
+        this.countsUnique = countsUniqueLocal;
     }
     
     
