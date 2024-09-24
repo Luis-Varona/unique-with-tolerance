@@ -5,32 +5,28 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
-// Class
+// Class definition
 public class ImpreciseArray {
-    // Fields
+    // Fields and constructor
     private final double[] arr;
     private final int arrSize;
     private final int[] permSorted;
     private final double[] arrSorted;
     
-    
-    // Constructor
     public ImpreciseArray(double[] arr) {
         this.arr = arr;
         this.arrSize = arr.length;
-        this.permSorted = getPermSorted();
-        this.arrSorted = getArrSorted();
+        this.permSorted = initializePermSorted();
+        this.arrSorted = initializeArrSorted();
     }
     
     
-    // Getter
+    // Getter and field initialization methods
     public double[] getArr() {
         return this.arr;
     }
     
-    
-    // Field initialization methods
-    private int[] getPermSorted() {        
+    private int[] initializePermSorted() {        
         List<Integer> permSortedLocal = IntStream.range(
             0, this.arrSize
         ).boxed().collect(Collectors.toList());
@@ -42,7 +38,7 @@ public class ImpreciseArray {
         return permSortedLocal.stream().mapToInt(k -> k).toArray();
     }
     
-    private double[] getArrSorted() {
+    private double[] initializeArrSorted() {
         double[] arrSortedLocal = new double[this.arrSize];
         
         for (int i = 0; i < this.arrSize; i++) {
@@ -115,7 +111,7 @@ public class ImpreciseArray {
     private int[] countsUnique;
     
     
-    // Private methods
+    // Private helper methods for `uniqueTol`
     private void setIndicesUnique(double atol, double rtol) {
         List<Integer> indicesUniqueLocal = new ArrayList<>();
         indicesUniqueLocal.add(0);
@@ -135,7 +131,6 @@ public class ImpreciseArray {
         this.indicesUnique = indicesUniqueLocal.stream().mapToInt(k -> k).toArray();
         this.numUnique = this.indicesUnique.length;
     }
-    
     
     private void setCountsAndInverseUnique() {
         int[] inverseUniqueLocal = new int[this.arrSize];
@@ -161,7 +156,6 @@ public class ImpreciseArray {
         this.inverseUnique = inverseUniqueLocal;
         this.countsUnique = countsUniqueLocal;
     }
-    
     
     private void setArrUniqueAndPermuteIndices() {
         double[] arrUniqueLocal = new double[this.numUnique];
