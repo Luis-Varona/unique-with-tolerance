@@ -1,5 +1,8 @@
+# NOTE: This is a prototype file to generate large arrays of similar random numbers.
+# It will soon be organized and moved to another file in the `Julia/tests` directory.
+
 #- Imports
-include("UniqueWithTolerance.jl")
+include("../UniqueWithTolerance.jl")
 using .UniqueWithTolerance: uniquetol
 using Distributions: Uniform
 using Random: shuffle!

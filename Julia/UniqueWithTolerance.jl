@@ -66,7 +66,7 @@ module UniqueWithTolerance
                 c = vec_sorted[idx]
                 idx_switch = findfirst(x -> !isclose(c, x), vec_sorted[(idx + 1):end])
             end
-                        
+            
             if return_counts || return_inverse
                 counts_unique = diff(vcat(indices_unique, n + 1))
                 if return_inverse
