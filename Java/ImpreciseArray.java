@@ -71,8 +71,10 @@ public class ImpreciseArray {
             );
         }
         
+        UniqueTolArray out;
+        
         if (this.arrSize == 0) {
-            return new UniqueTolArray(
+            out = new UniqueTolArray(
                 new double[0],
                 new int[0],
                 new int[0],
@@ -84,18 +86,24 @@ public class ImpreciseArray {
             setCountsAndInverseUnique();
             
             if ("highest".equals(occurrence)) {
-                useHighestOccurrences();
+                for (int i = 0; i < this.numUnique - 1; i++) {
+                    this.indicesUnique[i] = this.indicesUnique[i + 1];
+                }
+                
+                this.indicesUnique[this.numUnique - 1] = this.arrSize - 1;
             }
             
             setArrUniqueAndPermuteIndices();
             
-            return new UniqueTolArray(
+            out = new UniqueTolArray(
                 this.arrUnique,
                 this.indicesUnique,
                 this.inverseUnique,
                 this.countsUnique
             );
         }
+        
+        return out;
     }
     
     
@@ -152,15 +160,6 @@ public class ImpreciseArray {
         
         this.inverseUnique = inverseUniqueLocal;
         this.countsUnique = countsUniqueLocal;
-    }
-    
-    
-    private void useHighestOccurrences() {
-        for (int i = 0; i < this.numUnique - 1; i++) {
-            this.indicesUnique[i] = this.indicesUnique[i + 1];
-        }
-        
-        this.indicesUnique[this.numUnique - 1] = this.arrSize - 1;
     }
     
     
