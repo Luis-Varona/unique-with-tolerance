@@ -1,4 +1,7 @@
 .vscode
+
 target/
+misc/
+
 *.o
 *.lock
