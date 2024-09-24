@@ -15,4 +15,4 @@ function main()
     println(bench_str)
 end
 
-main()
+# main()
