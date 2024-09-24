@@ -1,3 +1,5 @@
 *.hpp linguist-language=C++
-.toml linguist-language=Rust
+*.toml linguist-language=Rust
+*.pyx linguist-language=Cython
+*.pyd linguist-language=Cython
 *.R linguist-language=R
