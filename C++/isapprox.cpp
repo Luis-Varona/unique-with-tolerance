@@ -1,6 +1,6 @@
-#include <stdlib.h>
-#include <stdbool.h>
-#include <math.h>
+#include <cstdlib>
+#include <cstdbool>
+#include <cmath>
 
 bool isapprox(
     double x,

@@ -1,7 +1,7 @@
 //
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstdbool>
 #include <string>
 
 #include "isapprox.hpp"

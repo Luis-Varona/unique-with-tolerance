@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <cstdio>
 #include "../uniquetol.hpp"
 #include "testarray.hpp"
 
