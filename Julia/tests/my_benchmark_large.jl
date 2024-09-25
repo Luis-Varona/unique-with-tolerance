@@ -10,7 +10,6 @@ function main()
     bench = @benchmark uniquetol($large_testarray)
     io = IOBuffer()
     show(io, "text/plain", bench)
-    bench_str = String(take!(io))
     println(String(take!(io)))
 end
 
