@@ -1,11 +1,9 @@
-#-
-include("../UniqueWithTolerance.jl")
 include("TestArray.jl")
+include("../UniqueWithTolerance.jl")
 
-using .UniqueWithTolerance: uniquetol
 using .TestArray: TESTARRAY
+using .UniqueWithTolerance: uniquetol
 
-#-
 function main()
     (arr_unique, indices_unique, inverse_unique, counts_unique) = uniquetol(
         TESTARRAY;

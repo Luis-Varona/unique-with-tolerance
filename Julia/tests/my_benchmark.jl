@@ -1,18 +1,16 @@
-#-
-include("../UniqueWithTolerance.jl")
 include("TestArray.jl")
+include("../UniqueWithTolerance.jl")
 
-using .UniqueWithTolerance: uniquetol
 using .TestArray: TESTARRAY
-using BenchmarkTools
+using .UniqueWithTolerance: uniquetol
+using BenchmarkTools: @benchmark
 
-#-
 function main()
-    bench = @benchmark uniquetol(TESTARRAY)
+    bench = @benchmark uniquetol($TESTARRAY)
     io = IOBuffer()
     show(io, "text/plain", bench)
     bench_str = String(take!(io))
     println(bench_str)
 end
 
-# main()
+main()
