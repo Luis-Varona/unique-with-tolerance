@@ -56,7 +56,6 @@ module UniqueWithTolerance
             
             perm_sorted = sortperm(vec)
             vec_sorted = vec[perm_sorted]
-            
             indices_unique = Vector{Int64}(undef, n)
             idx = 1; idx_switch = 0; num_unique = 0
             
@@ -72,6 +71,7 @@ module UniqueWithTolerance
             
             if return_counts || return_inverse
                 counts_unique = diff(vcat(indices_unique, n + 1))
+                
                 if return_inverse
                     inverse_unique = vcat(fill.(eachindex(counts_unique), counts_unique)...)
                     permute!(inverse_unique, invperm(perm_sorted))
@@ -79,9 +79,8 @@ module UniqueWithTolerance
             end
             
             if occurrence == "highest"
-                indices_unique[2:end] .-= 1
-                indices_unique[1] = n
-                permute!(indices_unique, vcat(2:length(indices_unique), 1))
+                indices_unique[1:(end - 1)] .= indices_unique[2:end] .- 1
+                indices_unique[end] = n
             end
             
             indices_unique .= perm_sorted[indices_unique]
@@ -89,11 +88,11 @@ module UniqueWithTolerance
         end
         
         if return_indices || return_inverse || return_counts
-            output_temp = Vector{Int64}[]
-            return_indices && push!(output_temp, indices_unique)
-            return_inverse && push!(output_temp, inverse_unique)
-            return_counts && push!(output_temp, counts_unique)
-            output = tuple(vec_unique, output_temp...)
+            output = Vector{Int64}[]
+            return_indices && push!(output, indices_unique)
+            return_inverse && push!(output, inverse_unique)
+            return_counts && push!(output, counts_unique)
+            output = tuple(vec_unique, output...)
         else
             output = vec_unique
         end

@@ -11,7 +11,7 @@ function main()
     io = IOBuffer()
     show(io, "text/plain", bench)
     bench_str = String(take!(io))
-    println(bench_str)
+    println(String(take!(io)))
 end
 
 main()
