@@ -1,4 +1,4 @@
-include("UniqueTolTestArray.jl")
+include("../UniqueTolTestArray.jl")
 using .UniqueTolTestArray: rand_testarray
 
 using CodecZlib
