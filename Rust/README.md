@@ -1,0 +1,3 @@
+# uniquetol.rs
+
+The Rust version of the algorithm. __Note:__ Benchmarking seems to indicate that it is significantly faster than the C++ version (four times faster on the same 729-element array). Need to confirm this...
