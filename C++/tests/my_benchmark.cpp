@@ -1,8 +1,8 @@
 #include <cstdio>
 #include <ctime>
 
+#include "helpers/testarray.hpp"
 #include "../uniquetol.hpp"
-#include "testarray.hpp"
 
 int main() {
     double *test_arr = test_array();
