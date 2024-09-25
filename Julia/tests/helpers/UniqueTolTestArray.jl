@@ -2,9 +2,6 @@ module UniqueTolTestArray
     #- EXPORTS AND IMPORTS
     export rand_testarray
     
-    include("../UniqueWithTolerance.jl")
-    using .UniqueWithTolerance: uniquetol
-    
     using Distributions: Uniform
     using Random: shuffle!
     

@@ -1,4 +1,4 @@
-include("TestArray.jl")
+include("helpers/TestArray.jl")
 include("../UniqueWithTolerance.jl")
 
 using .TestArray: TESTARRAY

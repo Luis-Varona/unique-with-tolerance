@@ -5,7 +5,7 @@ using CodecZlib
 using JLD2: load
 
 function main()
-    large_testarray = load("Julia/tests/large_testarray.jld2")["large_testarray"]
+    large_testarray = load("Julia/tests/helpers/large_testarray.jld2")["large_testarray"]
     
     (arr_unique, indices_unique, inverse_unique, counts_unique) = uniquetol(
         large_testarray;
